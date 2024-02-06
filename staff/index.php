@@ -5,6 +5,7 @@
 <?php
 $pagetitle = "student";
 include("../template/head.php");
+$page = "staff";
 include "../template/navbar.php";
 ?>
 
@@ -31,22 +32,39 @@ include "../template/navbar.php";
                 </div>
             </div>
         </form>
-        <table id="querytable" class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Department</th>
-                    <th scope="col">Salary</th>
-                    <th scope="col">Leave</th>
-                    <th scope="col">Phone</th>
-                </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-
+        <div class="row">
+            <div class="col-12 mt-5">
+            <h4>Unregistered Teachers</h4>
+                <table id="unteacher" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 mt-5">
+            <h4>Registered Teachers</h4>
+                <table id="teacher" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
         <div class="modal fade" id="editTeachers" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -70,99 +88,45 @@ include "../template/navbar.php";
 
 <script>
     let result;
-    const editTeachersModal = new bootstrap.Modal(document.querySelector("#editTeachers"));
-    function init(){
-        let url = encodeURI(`./get_teachers.php`)
-    fetch(url).then(resp => resp.json()).then(data => {
-        result = data;
-        const datahtml = data.map((element, index) => (
-            `<tr onclick=showdetails(${index})>
+    function init() {
+        let url = encodeURI(`./get_unregistered_teachers.php`)
+        fetch(url).then(resp => resp.json()).then(data => {
+            result = data;
+            const datahtml = data.map((element, index) => (
+                `<tr>
                 <td scope="row">${element.firstname} ${element.lastname}</td>
                 <td>${element.email}</td>
                 <td>${element.department}</td>
-                <td>${element.salary}</td>
-                <td>${element.leave}</td>
+                <td>${element.phone}</td>
+                <td><button onclick="activeuser('${element.email}')" class="btn btn-warning">!</button></td>
+                </tr>`
+            )).join("");
+            document.querySelector("table#unteacher tbody").innerHTML = datahtml;
+        })
+
+        url = encodeURI(`./get_registered_teachers.php`)
+        fetch(url).then(resp => resp.json()).then(data => {
+            result = data;
+            const datahtml = data.map((element, index) => (
+                `<tr>
+                <td scope="row">${element.firstname} ${element.lastname}</td>
+                <td>${element.email}</td>
+                <td>${element.department}</td>
                 <td>${element.phone}</td>
                 </tr>`
-        )).join("");
-        document.querySelector("#querytable tbody").innerHTML = datahtml;
-    })
-    }
-
-
-    // show edit page to edit teacher details
-    function showdetails(index) {
-        const data = result[parseInt(index)]
-        console.log(data)
-        const datahtml = `
-
-                            <label class="d-none" for="email">Email:</label>
-                            <input type="email" id="email" name="email" value="${data["email"]}" class="form-control d-none" required>
-                            
-                            <label for="department">Department: </label><br>
-                            <select class="form-control" value="${data["department"]}" name="department" id="department">
-                                <option></option>
-
-                                <?php
-                                include("../context/config.php");
-
-                                $sql_check_email = "SELECT * FROM depts";
-                                $stmt = sqlsrv_query($conn, $sql_check_email);
-                                while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                                    echo "<option value=\"" . $row["Name"] . "\">" . $row["Name"] . "</option>";
-                                }
-
-                                // print_r($row);
-                                sqlsrv_free_stmt($stmt);
-                                sqlsrv_close($conn);
-                                ?>
-                            </select><br>
-
-                            <label for="salary">Salary:</label><br>
-                            <input type="number" value="${data["salary"]}" id="salary" name="salary" class="form-control" required />
-                            <br>
-
-                            <label for="leave">Leave:</label><br>
-                            <input type="number" value="${data["leave"]}" id="leave" name="leave" class="form-control" required />
-                            <br><br>
-
-                            <input type="submit" value="Submit" class="form-control">
-        `
-        const modalElem = document.querySelector("#editTeachers")
-        modalElem.querySelector(".modal-body form").innerHTML = datahtml
-        modalElem.querySelector("form #department").value = data["department"]
-        editTeachersModal.show()
-
-    }
-    document.querySelector("#editTeachers .modal-body form").addEventListener("submit",function(event){
-        event.preventDefault();
-        var formData = new FormData(this); // Constructs a FormData object from the form
-
-        // Convert FormData to JSON
-        var jsonObject = {};
-        formData.forEach(function (value, key) {
-            jsonObject[key] = value;
-        });
-        console.log(jsonObject)
-        var jsonData = JSON.stringify(jsonObject);
-        console.log(jsonData)
-        console.log(new Error("stop"))
-
-        // Example of sending formData as JSON via AJAX
-        fetch('./edit_teachers.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(jsonData)
+            )).join("");
+            document.querySelector("table#teacher tbody").innerHTML = datahtml;
         })
-            .then(response => response.text())
-            .then(data => {
-                init();
-                editTeachersModal.hide()
-            })
-            .catch(error => console.error('Error:', error));
-    })
+    }
+
+    function activeuser(email) {
+        let url = encodeURI(`./activeuser.php?email=${email}`)
+        fetch(url).then(resp => resp.text()).then(data => {
+            init()
+        })
+    }
+
+
 
 
     init()

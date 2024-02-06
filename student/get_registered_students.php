@@ -2,16 +2,9 @@
 session_start();
 include("../context/config.php");
 
-
-
-// Collect department and batch from request
-$department = $_GET['department'];
-$batch = $_GET['batch'];
-
 // Prepare and execute SQL query
-$sql = "SELECT * FROM Student WHERE Department = ? AND Batch = ?";
-$params = array($department, $batch);
-$stmt = sqlsrv_query($conn, $sql, $params);
+$sql = "SELECT * FROM users WHERE desig = 'student' AND status = 1";
+$stmt = sqlsrv_query($conn, $sql);
 
 if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));

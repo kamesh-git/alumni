@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
 
     // SQL query to check username and password
-    $sql = "SELECT * FROM teachers WHERE email = ? AND password = ?";
+    $sql = "SELECT * FROM users WHERE email = ? AND password = ?";
     
     // Prepare and execute the query
     $params = array($useremail, $password);
@@ -27,6 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Store user details in session
         $_SESSION['user_details'] = $user_details;   
+        if ($user_details["email"] == "admin@gmail.com") $_SESSION['admin'] = true;
+        else $_SESSION['admin'] = false;
         
 
         // Redirect to index page

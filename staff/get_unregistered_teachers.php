@@ -3,7 +3,7 @@ session_start();
 include("../context/config.php");
 
 // Prepare and execute SQL query
-$sql = "SELECT * FROM Teachers";
+$sql = "SELECT * FROM users WHERE desig = 'teacher' AND status = 0";
 $stmt = sqlsrv_query($conn, $sql);
 
 if ($stmt === false) {

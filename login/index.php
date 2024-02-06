@@ -3,6 +3,7 @@
 <?php
 $pagetitle = "register";
 include("../template/head.php");
+$page = "login";
 include "../template/navbar.php";
 ?>
 
@@ -23,7 +24,6 @@ include "../template/navbar.php";
             <fieldset>
                 <h3 class="text-center mb-3">Staff Login</h3>
                 <?php
-                session_start();
                 // Check if there are any error messages                
                 if (isset($_SESSION['login_error']) != "")
                     echo "<div class=\"alert alert-danger text-center\" role=\"alert\">" . $_SESSION['login_error'] . "

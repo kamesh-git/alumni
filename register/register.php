@@ -9,14 +9,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lastname = $_POST["lastname"];
     $email = $_POST["email"];
     $dob = $_POST["dob"];
+    $desig = $_POST["desig"];
+    $from = $_POST["from"] ?? 0;
+    $to = $_POST["to"] ?? 0;
+    $placement = $_POST["placement"] ?? "";
+    $address = $_POST["address"] ?? "";
     $phone = $_POST["phone"];
     $department = $_POST["department"];
-    $salary = 0;
-    $leave = 0;
     $password = $_POST["password"];
+    $status = 0;
 
     // Check if email already exists in the database
-    $sql_check_email = "SELECT COUNT(*) AS email_count FROM teachers WHERE email = ?";
+    $sql_check_email = "SELECT COUNT(*) AS email_count FROM users WHERE email = ?";
     $params_check_email = array($email);
     $stmt_check_email = sqlsrv_query($conn, $sql_check_email, $params_check_email);
     $row = sqlsrv_fetch_array($stmt_check_email, SQLSRV_FETCH_ASSOC);
@@ -29,11 +33,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     } else {
         // SQL query to insert data into the teachers table
-        $sql = "INSERT INTO teachers (firstname, lastname, email, dob, phone, department, salary, leave, password)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (firstname, lastname, email, dob, desig, \"from\", \"to\", placement, \"address\", phone, department, password, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         // Prepare and execute the query
-        $params = array($firstname, $lastname, $email, $dob, $phone, $department, $salary, $leave, $password);
+        $params = array($firstname, $lastname, $email, $dob, $desig, $from, $to, $placement, $address, $phone, $department, $password, $status);
         $stmt = sqlsrv_query($conn, $sql, $params);
         
         // Check if the query executed successfully

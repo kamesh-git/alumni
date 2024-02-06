@@ -15,10 +15,7 @@ include("../template/head.php");
 </head>
 
 <body>
-    <?php
-    session_start();
-    include "../template/navbar.php";
-    ?>
+    <?php $page = "profile"; include "../template/navbar.php"; ?>
 
 
     <div class="container d-flex justify-content-center align-items-center" style="min-height:100vh;width:100vw;">
@@ -26,6 +23,7 @@ include("../template/head.php");
             <fieldset>
                 <h3 class="text-center mb-3">Staff Registration</h3>
                 <?php
+
                 // Check if there are any error messages                
                 if (isset($_SESSION['reg_error']) != "")
                     echo "<div class=\"alert alert-danger text-center\" role=\"alert\">" . $_SESSION['reg_error'] . "
@@ -43,7 +41,7 @@ include("../template/head.php");
                     <div class="col ps-0">
                         <label for="lastname" class="form-label">Last Name</label>
                         <input type="text" value=<?php echo $_SESSION["user_details"]["lastname"] ?> name="lastname"
-                            class="form-control" id="lastname" placeholder="" required>
+                            class="form-control" id="lastname" placeholder="">
                     </div>
                 </div>
                 <div class="row">
@@ -53,7 +51,23 @@ include("../template/head.php");
                 </div>
                 <div class="row">
                     <label for="dob" class="form-label">Date of birth</label>
-                    <input type="date" value=<?php echo $_SESSION["user_details"]["dob"]->format('Y-m-d'); ?> class="form-control" id="dob" name="dob" placeholder="" required>
+                    <input type="date" value=<?php echo $_SESSION["user_details"]["dob"]->format('Y-m-d'); ?>
+                        class="form-control" id="dob" name="dob" placeholder="" required>
+                </div>
+                <div class=<?php if ($_SESSION["user_details"]["desig"] == "teacher")
+                    echo "d-none";
+                else
+                    echo "row";
+                ?>>
+                    <label for="placement" class="form-label">Placement Details:</label>
+                    <textarea name="placement" value=<?php echo $_SESSION["user_details"]["placement"] ?> id="placement"
+                        cols="30" rows="5"><?php echo $_SESSION["user_details"]["placement"] ?></textarea>
+                </div>
+
+                <div class="row">
+                    <label for="address" class="form-label">Address:</label>
+                    <textarea name="address" value=<?php echo $_SESSION["user_details"]["address"] ?> id="address"
+                        cols="30" rows="3"><?php echo $_SESSION["user_details"]["address"] ?></textarea>
                 </div>
                 <div class="row">
                     <label for="phone" class="form-label">Phone Number</label>
@@ -66,13 +80,22 @@ include("../template/head.php");
                         class="form-control" id="password" name="password" placeholder="" required>
                 </div>
                 <div class="row">
-                    <button class="btn btn-primary">Save</button>
+                    <button class="btn btn-primary">Submit</button>
                 </div>
+                <div class="row">
+                    <small class="text-secondary">Already an User? <a class="text-dark" href="/alumni/login">Log
+                            in</a></small>
+                </div>
+
             </fieldset>
         </form>
     </div>
 
 
 </body>
+
+<script>
+    
+</script>
 
 </html>

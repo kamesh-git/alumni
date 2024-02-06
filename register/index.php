@@ -15,7 +15,7 @@ include("../template/head.php");
 </head>
 
 <body>
-    <?php include "../template/navbar.php"; ?>
+    <?php $page = "register"; include "../template/navbar.php"; ?>
 
 
     <div class="container d-flex justify-content-center align-items-center" style="min-height:100vh;width:100vw;">
@@ -23,7 +23,6 @@ include("../template/head.php");
             <fieldset>
                 <h3 class="text-center mb-3">Staff Registration</h3>
                 <?php
-                session_start();
                 // Check if there are any error messages                
                 if (isset($_SESSION['reg_error']) != "")
                     echo "<div class=\"alert alert-danger text-center\" role=\"alert\">" . $_SESSION['reg_error'] . "
@@ -92,6 +91,14 @@ include("../template/head.php");
                         }
                         ?>
                     </select>
+                </div>
+                <div class="row desigtoggle d-none">
+                    <label for="placement" class="form-label">Placement Details:</label>
+                    <textarea name="placement" id="placement" cols="30" rows="5"></textarea>
+                </div>
+                <div class="row">
+                    <label for="address" class="form-label">Address:</label>
+                    <textarea name="address" id="address" cols="30" rows="3"></textarea>
                 </div>
                 <div class="row">
                     <label for="phone" class="form-label">Phone Number</label>
