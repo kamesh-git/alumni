@@ -16,8 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $address = $_POST["address"] ?? "";
     $phone = $_POST["phone"];
     $department = $_POST["department"];
+    $photo = $_FILES['photo'];
     $password = $_POST["password"];
     $status = 0;
+
+
 
     // Check if email already exists in the database
     $sql_check_email = "SELECT COUNT(*) AS email_count FROM users WHERE email = ?";
@@ -32,12 +35,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ./");
         exit;
     } else {
+        $target_dir = "../userphoto/$email";
+        $target_file = $target_dir . basename($_FILES["photo"]["name"]);
+        $target_filesql = basename($_FILES["photo"]["name"]);
+        move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
+
+
         // SQL query to insert data into the teachers table
-        $sql = "INSERT INTO users (firstname, lastname, email, dob, desig, \"from\", \"to\", placement, \"address\", phone, department, password, status)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (firstname, lastname, email, dob, desig, \"from\", \"to\", placement, \"address\", phone, department, photo, password, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         // Prepare and execute the query
-        $params = array($firstname, $lastname, $email, $dob, $desig, $from, $to, $placement, $address, $phone, $department, $password, $status);
+        $params = array($firstname, $lastname, $email, $dob, $desig, $from, $to, $placement, $address, $phone, $department, $target_filesql, $password, $status);
         $stmt = sqlsrv_query($conn, $sql, $params);
         
         // Check if the query executed successfully
@@ -46,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Data inserted successfully, redirect to index page
-        header("Location: index.php");
+        header("Location: /alumni/login");
         exit;
     }
 

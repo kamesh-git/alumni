@@ -18,7 +18,7 @@ if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
-header("Location: ./");
+header("Location: /alumni");
 
 sqlsrv_free_stmt($stmt);
 sqlsrv_close($conn);

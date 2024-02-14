@@ -6,6 +6,31 @@
   </style>
 </head>
 
+<!-- Add Notification Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="mb-4">Add Notification</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/alumni/notification/addNotification.php" method="post">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title:</label>
+            <input type="text" class="form-control" id="title" name="title">
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description:</label>
+            <textarea class="form-control" id="description" name="description" rows="5"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="/alumni"> <img width="50" src="/alumni/assets/headicon.jpg" alt=""></a>
@@ -22,6 +47,7 @@
         <?php
         session_start();
         if (isset($_SESSION["admin"])) {
+          if($_SESSION["user_details"]["desig"] != "student")
           if ($page == 'student')
             echo '<li class="nav-item">
         <a class="nav-link active" href="/alumni/student">Students</a>
@@ -50,12 +76,12 @@
         <?php
         if (isset($_SESSION["admin"]))
           echo '
-          <li class="nav-item">
-          <a class="nav-link" href="/alumni/notification"><img src="/alumni/assets/notification.svg" alt=""></a>
+          <li class="nav-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <a style="cursor: pointer;" class="nav-link"><img src="/alumni/assets/notification.svg" alt=""> + </a>
           </li>
           <li class="nav-item">
           <div class="d-flex align-items-center">
-      <img src="/alumni/assets/user.svg" alt="Profile" width="30" height="30" class="rounded-circle ms-auto me-auto">
+      <img src="/alumni/userphoto/'.$_SESSION["user_details"]["email"]. $_SESSION["user_details"]["photo"].'" alt="Profile" width="30" height="30" class="rounded-circle ms-auto me-auto">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

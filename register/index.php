@@ -19,7 +19,7 @@ include("../template/head.php");
 
 
     <div class="container d-flex justify-content-center align-items-center" style="min-height:100vh;width:100vw;">
-        <form class="form" method="post" action="register.php">
+        <form class="form" method="post" action="register.php" enctype="multipart/form-data">
             <fieldset>
                 <h3 class="text-center mb-3">Staff Registration</h3>
                 <?php
@@ -127,6 +127,10 @@ include("../template/head.php");
                 <div class="row">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="" required>
+                </div>
+                <div class="row">
+                    <label for="photo" class="form-label">Upload Image</label>
+                    <input type="file" class="form-control" id="photo" accept="image/*" name="photo" placeholder="" required>
                 </div>
                 <div class="row">
                     <button class="btn btn-primary">Submit</button>
