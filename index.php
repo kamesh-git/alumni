@@ -5,6 +5,28 @@ $page = "home";
 include("template/navbar.php");
 
 ?>
+<!-- Add Gallery Modal -->
+<div class="modal fade" id="addGalleryModal" tabindex="-1" aria-labelledby="addGalleryModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="mb-4">Add Gallery Photo</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/alumni/gallery/addGallery.php" method="post" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="photo" class="form-label">Photo:</label>
+            <input type="file" accept="image/*" class="form-control" id="photo" name="photo" rows="5" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+
 
 
 <body style="background-color:#e0e0e0;">
@@ -46,8 +68,9 @@ include("template/navbar.php");
         </div>
     </div>
 
-    <div class="container mt-5 bg-light" data-aos="fade-up" data-aos-duration="500">
-        <div class="card pb-3" style="background: transparent;">
+    <div class="container mt-5 " data-aos="fade-up" data-aos-duration="500">
+    <h2>About us</h2>
+        <div class="card pb-3 bg-light" style="background: transparent;">
             <div class="row align-items-center g-0">
                 <div class="col-lg-5"><img src="/college/assets/college.jpg" class="img-fluid rounded-start" alt="...">
                 </div>
@@ -74,6 +97,26 @@ include("template/navbar.php");
         </div>
     </div>
 
+    <div class="container mt-5 " data-aos="fade-up" data-aos-duration="500">
+    <h2>About Alumni</h2>
+        <div class="card pb-3 bg-light" style="background: transparent;">
+            <div class="row align-items-center g-0">
+                <div class="col-lg-12">
+                    <div class="card-body" style="text-align: justify;">
+                        <p class="card-text about-text"> Alumni are the invaluable ambassadors of any institution, representing its legacy, values, and achievements. These distinguished individuals, having traversed the corridors of academia, emerge as torchbearers illuminating paths for future generations.
+The bond between an institution and its alumni transcends time, fostering a continuum of learning and growth. Alumni serve as a testament to the transformative power of education, embodying the ethos of excellence instilled during their academic tenure.
+<br><br>
+Beyond mere graduates, alumni embody a diverse tapestry of accomplishments spanning various fields and industries. They form a vibrant network, fostering connections, collaborations, and mentorship opportunities. Through their collective endeavors, alumni contribute to the advancement of society, driving innovation, and effecting positive change.
+Engagement with alumni is pivotal for institutions, as they provide invaluable insights, support, and resources. Alumni reunions, networking events, and mentorship programs cultivate a sense of belonging and perpetuate the institution's ethos.
+<br><br>
+As stewards of tradition and champions of progress, alumni uphold the values of their alma mater while carving distinctive paths in their respective domains. Their enduring dedication and unwavering commitment enrich the fabric of the institution, leaving an indelible mark on its legacy.
+In essence, alumni epitomize the enduring spirit of learning, leadership, and service, embodying the essence of their alma mater long after their academic journey concludes.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container mt-5" data-aos="fade-up" data-aos-duration="500">
         <h2>Notifications</h2>
         <div style="max-height:400px; overflow-y:scroll; " id="notifications" class="row mt-3 bg-light pt-3">
@@ -82,32 +125,33 @@ include("template/navbar.php");
             </div>
         </div>
     </div>
+    <div class="container pt-5 mt-5 bg-light" data-aos="fade-up" data-aos-duration="500">
 
-    <?php include("./template/staffDetails.php"); ?>
+    <h2>Gallery</h2>
+            
+            <?php include("./gallery/index.php"); ?>
+        </div>
+        <?php include("./template/footer.php"); ?>
 
-    <?php include("./template/alumniDetails.php"); ?>
+        <script>
+            // Fetch notifications from PHP script
+            function notificationinit() {
+                fetch('/alumni/notification/get_notifications.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        const notificationsContainer = document.getElementById('notifications');
+                        if (data.length > 0) notificationsContainer.innerHTML = "";
 
-    <?php include("./template/footer.php"); ?>
+                        data.forEach(notification => {
+                            const card = document.createElement('div');
+                            card.classList.add('col-md-12', 'mb-3');
 
-    <script>
-        // Fetch notifications from PHP script
-        function notificationinit(){
-            fetch('/alumni/notification/get_notifications.php')
-            .then(response => response.json())
-            .then(data => {
-                const notificationsContainer = document.getElementById('notifications');
-                if (data.length > 0) notificationsContainer.innerHTML = "";
+                            const cardBody = document.createElement('div');
+                            cardBody.classList.add('card', 'h-100', 'cursor-pointer');
 
-                data.forEach(notification => {
-                    const card = document.createElement('div');
-                    card.classList.add('col-md-12', 'mb-3');
-
-                    const cardBody = document.createElement('div');
-                    cardBody.classList.add('card', 'h-100', 'cursor-pointer');
-
-                    const cardTitle = document.createElement('div');
-                    cardTitle.classList.add('card-body');
-                    cardTitle.innerHTML = `
+                            const cardTitle = document.createElement('div');
+                            cardTitle.classList.add('card-body');
+                            cardTitle.innerHTML = `
                     <div class="d-flex justify-content-between">
                     <h5 class="card-title"> ${notification.title} </h5>
                     <div>
@@ -119,8 +163,8 @@ include("template/navbar.php");
                 </button>
                     <?php
                     if (isset($_SESSION["admin"]))
-                    if ($_SESSION["admin"])
-                    echo '
+                        if ($_SESSION["admin"])
+                            echo '
                 
                 <button type="button" class="btn btn-outline-danger delete-button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -137,27 +181,28 @@ include("template/navbar.php");
                     <small class="card-text fw-light">${notification.created_at.date.split(" ")[0]}</small>`;
 
 
-                    cardBody.appendChild(cardTitle);
+                            cardBody.appendChild(cardTitle);
 
-                    card.appendChild(cardBody);
-                    notificationsContainer.appendChild(card);
+                            card.appendChild(cardBody);
+                            notificationsContainer.appendChild(card);
 
-                    // delete click event to toggle description display
-                    if(card.querySelector(".delete-button")){
-                    card.querySelector(".delete-button").addEventListener('click', () => {
-                        const URI = `/alumni/notification/deleteNotification.php?id=${notification.ID}`
-                        fetch(URI).then(resp => resp.text()).then(data => {console.log(data);location.reload();}).catch(err => console.log(err))
-                    })
-                }
+                            // delete click event to toggle description display
+                            if (card.querySelector(".delete-button")) {
+                                card.querySelector(".delete-button").addEventListener('click', () => {
+                                    const URI = `/alumni/notification/deleteNotification.php?id=${notification.ID}`
+                                    fetch(URI).then(resp => resp.text()).then(data => { console.log(data); location.reload(); }).catch(err => console.log(err))
+                                })
+                            }
 
 
-                    // Add click event to toggle description display
-                    card.querySelector(".view-button").addEventListener('click', () => {
-                        const title = notification.title;
-                        const description = notification.description;
+                            // Add click event to toggle description display
+                            card.querySelector(".view-button").addEventListener('click', () => {
+                                const title = notification.title;
+                                const description = notification.description;
+                                const photo = notification.photo;
 
-                        // Create the modal content
-                        const modalContent = `
+                                // Create the modal content
+                                const modalContent = `
                             <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
@@ -167,31 +212,32 @@ include("template/navbar.php");
                                         </div>
                                         <div class="modal-body">
                                             <p>${description}</p>
+                                            ${photo != '' ? `<img src="/alumni/notificationphoto/${notification.email}${photo}" style="width:100%">` : ''}
                                         </div>
                                     </div>
                                 </div>
                             </div>`;
 
-                        // Append the modal content to the body
-                        document.body.insertAdjacentHTML('beforeend', modalContent);
+                                // Append the modal content to the body
+                                document.body.insertAdjacentHTML('beforeend', modalContent);
 
-                        // Show the modal
-                        const notificationModal = new bootstrap.Modal(document.getElementById('notificationModal'));
-                        notificationModal.show();
+                                // Show the modal
+                                const notificationModal = new bootstrap.Modal(document.getElementById('notificationModal'));
+                                notificationModal.show();
 
-                        // Remove the modal from the DOM after it's hidden
-                        notificationModal._element.addEventListener('hidden.bs.modal', function () {
-                            document.getElementById('notificationModal').remove();
+                                // Remove the modal from the DOM after it's hidden
+                                notificationModal._element.addEventListener('hidden.bs.modal', function () {
+                                    document.getElementById('notificationModal').remove();
+                                });
+                            });
+
                         });
-                    });
+                    })
+                    .catch(error => console.error('Error fetching notifications:', error));
 
-                });
-            })
-            .catch(error => console.error('Error fetching notifications:', error));
+            }
 
-        }
-
-        notificationinit()
-    </script>
+            notificationinit()
+        </script>
 
 </body>

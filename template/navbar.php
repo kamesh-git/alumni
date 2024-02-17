@@ -15,14 +15,18 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/alumni/notification/addNotification.php" method="post">
+        <form action="/alumni/notification/addNotification.php" method="post" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="title" class="form-label">Title:</label>
-            <input type="text" class="form-control" id="title" name="title">
+            <input type="text" class="form-control" id="title" name="title" required>
           </div>
           <div class="mb-3">
             <label for="description" class="form-label">Description:</label>
-            <textarea class="form-control" id="description" name="description" rows="5"></textarea>
+            <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="photo" class="form-label">Photo:</label>
+            <input type="file" accept="image/*" class="form-control" id="photo" name="photo" rows="5" />
           </div>
           <button type="submit" class="btn btn-primary">Add</button>
         </form>
@@ -41,36 +45,54 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link <?php if ($page == 'home')
+          <a class="nav-link <?php session_start();
+          if ($page == 'home')
             echo "active"; ?>" aria-current="page" href="/alumni">Home</a>
         </li>
+        <li class="nav-item">
+          <div class="dropdown ">
+            <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Details
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="/alumni/template/staffDetails.php">Staff</a></li>
+              <li><a class="dropdown-item" href="/alumni/template/alumniDetails.php">Student</a></li>
+            </ul>
+          </div>
+        </li>
+
         <?php
-        session_start();
+        if (isset($_SESSION["admin"]))
+          if ($_SESSION["user_details"]["desig"] != "student")
+            echo '<li class="nav-item">
+            <div class="dropdown ">
+              <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Register
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">';
+
         if (isset($_SESSION["admin"])) {
-          if($_SESSION["user_details"]["desig"] != "student")
-          if ($page == 'student')
-            echo '<li class="nav-item">
-        <a class="nav-link active" href="/alumni/student">Students</a>
-      </li>';
-          else
-            echo '<li class="nav-item">
-      <a class="nav-link" href="/alumni/student">Students</a>
-    </li>';
+          if ($_SESSION["user_details"]["desig"] != "student")
+            echo '<li><a class="dropdown-item" href="/alumni/student">Students</a></li>';
         }
         ?>
         <?php
         if (isset($_SESSION["admin"])) {
           if ($_SESSION["admin"])
-            if ($page == 'staff')
-              echo '<li class="nav-item">
-          <a class="nav-link active" href="/alumni/staff">Staff</a>
-        </li>';
-            else
-              echo '<li class="nav-item">
-          <a class="nav-link" href="/alumni/staff">Staff</a>
-        </li>';
+            echo '<li><a class="dropdown-item" href="/alumni/staff">Staff</a></li>';
         }
+        if (isset($_SESSION["admin"]))
+          if ($_SESSION["user_details"]["desig"] != "student")
+            echo '</div>
+            </li>
+            </ul>';
+
         ?>
+
+
+
       </ul>
       <ul class="navbar-nav mb-2 mb-lg-0">
         <?php
@@ -81,7 +103,7 @@
           </li>
           <li class="nav-item">
           <div class="d-flex align-items-center">
-      <img src="/alumni/userphoto/'.$_SESSION["user_details"]["email"]. $_SESSION["user_details"]["photo"].'" alt="Profile" width="30" height="30" class="rounded-circle ms-auto me-auto">
+      <img src="/alumni/userphoto/' . $_SESSION["user_details"]["email"] . $_SESSION["user_details"]["photo"] . '" alt="Profile" width="30" height="30" class="rounded-circle ms-auto me-auto">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
