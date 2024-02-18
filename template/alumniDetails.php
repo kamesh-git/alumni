@@ -1,35 +1,11 @@
 <?php
-$pagetitle = "Students Details";
-include("./head.php");
-$page = "home";
-include("./navbar.php");
+// $pagetitle = "Students Details";
+// include("./head.php");
+// $page = "home";
+// include("./navbar.php");
 
 ?>
-<div class="modal fade" id="alumniDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="mb-4">Add Notification</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="col-4 d-flex justify-content-center"><img style="width:100%" src="" alt=""></div>
-            <div class="col-8">
-                Email: <span id="email"></span> <br>
-                Department: <span id="department"></span> <br>
-                Batch: <span id="batch"></span> <br>
-                Phone: <span id="phone"></span> <br>
-                Placement: <span id="placement"></span> <br>
-                Address: <span id="address"></span> <br>
 
-            </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
 <div class="container mt-5 bg-light p-5" data-aos="fade-left" data-aos-duration="500">
     <h4 style="font-family: 'Libre Baskerville', serif;"> Alumni Details: </h4>
     <table id="alumniquerytable" class="table table-hover">

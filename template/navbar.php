@@ -49,18 +49,6 @@
           if ($page == 'home')
             echo "active"; ?>" aria-current="page" href="/alumni">Home</a>
         </li>
-        <li class="nav-item">
-          <div class="dropdown ">
-            <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Details
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="/alumni/template/staffDetails.php">Staff</a></li>
-              <li><a class="dropdown-item" href="/alumni/template/alumniDetails.php">Student</a></li>
-            </ul>
-          </div>
-        </li>
 
         <?php
         if (isset($_SESSION["admin"]))

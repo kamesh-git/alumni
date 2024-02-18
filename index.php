@@ -5,133 +5,244 @@ $page = "home";
 include("template/navbar.php");
 
 ?>
-<!-- Add Gallery Modal -->
-<div class="modal fade" id="addGalleryModal" tabindex="-1" aria-labelledby="addGalleryModalLabel" aria-hidden="true">
+<!-- Students details -->
+<div class="modal fade" id="alumniDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="mb-4">Add Gallery Photo</h2>
+        <h2 class="mb-4">Add Notification</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/alumni/gallery/addGallery.php" method="post" enctype="multipart/form-data">
-          <div class="mb-3">
-            <label for="photo" class="form-label">Photo:</label>
-            <input type="file" accept="image/*" class="form-control" id="photo" name="photo" rows="5" required />
-          </div>
-          <button type="submit" class="btn btn-primary">Add</button>
-        </form>
+        <div class="row">
+            <div class="col-4 d-flex justify-content-center"><img style="width:100%" src="" alt=""></div>
+            <div class="col-8">
+                Email: <span id="email"></span> <br>
+                Department: <span id="department"></span> <br>
+                Batch: <span id="batch"></span> <br>
+                Phone: <span id="phone"></span> <br>
+                Placement: <span id="placement"></span> <br>
+                Address: <span id="address"></span> <br>
+
+            </div>
+        </div>
+
       </div>
     </div>
   </div>
+</div>
+
+
+<!-- Staff details modal -->
+<div class="modal fade" id="staffDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="mb-4">Add Notification</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-4 d-flex justify-content-center"><img width="100" src="" alt=""></div>
+            <div class="col-8">
+                Email: <span id="email"></span> <br>
+                Department: <span id="department"></span> <br>
+                Phone: <span id="phone"></span> <br>
+                Address: <span id="address"></span> <br>
+
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Gallery Modal -->
+<div class="modal fade" id="addGalleryModal" tabindex="-1" aria-labelledby="addGalleryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="mb-4">Add Gallery Photo</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/alumni/gallery/addGallery.php" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="photo" class="form-label">Photo:</label>
+                        <input type="file" accept="image/*" class="form-control" id="photo" name="photo" rows="5"
+                            required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <div>
 
 
 
-<body style="background-color:#e0e0e0;">
+    <body style="background-color:#e0e0e0;">
 
-    <div class="container mt-5" data-aos="fade-up" data-aos-duration="500">
-        <div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
+        <div class="container mt-5" data-aos="fade-up" data-aos-duration="500">
+            <div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item carousel-item-next carousel-item-start">
+                        <img src="/college/assets/college.jpg" width="100%" alt="">
+
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/college/assets/college.jpg" width="100%" alt="">
+
+                    </div>
+                    <div class="carousel-item active carousel-item-start">
+                        <img src="/college/assets/college.jpg" width="100%" alt="">
+
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-            <div class="carousel-inner">
-                <div class="carousel-item carousel-item-next carousel-item-start">
-                    <img src="/college/assets/college.jpg" width="100%" alt="">
-
-                </div>
-                <div class="carousel-item">
-                    <img src="/college/assets/college.jpg" width="100%" alt="">
-
-                </div>
-                <div class="carousel-item active carousel-item-start">
-                    <img src="/college/assets/college.jpg" width="100%" alt="">
-
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
-    </div>
 
-    <div class="container mt-5 " data-aos="fade-up" data-aos-duration="500">
-    <h2>About us</h2>
-        <div class="card pb-3 bg-light" style="background: transparent;">
-            <div class="row align-items-center g-0">
-                <div class="col-lg-5"><img src="/college/assets/college.jpg" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-lg-7">
-                    <div class="card-body" style="text-align: justify;">
-                        <p class="card-text about-text">Government Polytechnic College, R.K. Nagar, Chennai was
-                            established by Government of Tamil Nadu in the
-                            year 2016, to cater to the needs and aspirations of the R.K. Nagar people who cannot afford
-                            the costly
-                            technical education offered by the private institutions.
-                        </p><br>
-                        <p class="card-text about-text"> This college started functioning first in the Central
-                            Polytechnic College campus at Tharamani, Chennai
-                            and then after the completion of building works and establishment of laboratories was
-                            shifted to the
-                            present location in the year 2017. The college can be reached by using both railway and bus
-                            way. By
-                            using Railway, it is very nearer to V.O.C. Nagar Railway station and it has bus facilities
-                            from various
-                            locations of city.
+        <div class="container mt-5 " data-aos="fade-up" data-aos-duration="500">
+            <h2>About us</h2>
+            <div class="card pb-3 bg-light" style="background: transparent;">
+                <div class="row align-items-center g-0">
+                    <div class="col-lg-5"><img src="/college/assets/college.jpg" class="img-fluid rounded-start"
+                            alt="...">
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="card-body" style="text-align: justify;">
+                            <p class="card-text about-text">Government Polytechnic College, R.K. Nagar, Chennai was
+                                established by Government of Tamil Nadu in the
+                                year 2016, to cater to the needs and aspirations of the R.K. Nagar people who cannot
+                                afford
+                                the costly
+                                technical education offered by the private institutions.
+                            </p><br>
+                            <p class="card-text about-text"> This college started functioning first in the Central
+                                Polytechnic College campus at Tharamani, Chennai
+                                and then after the completion of building works and establishment of laboratories was
+                                shifted to the
+                                present location in the year 2017. The college can be reached by using both railway and
+                                bus
+                                way. By
+                                using Railway, it is very nearer to V.O.C. Nagar Railway station and it has bus
+                                facilities
+                                from various
+                                locations of city.
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container mt-5 " data-aos="fade-up" data-aos-duration="500">
-    <h2>About Alumni</h2>
-        <div class="card pb-3 bg-light" style="background: transparent;">
-            <div class="row align-items-center g-0">
-                <div class="col-lg-12">
-                    <div class="card-body" style="text-align: justify;">
-                        <p class="card-text about-text"> Alumni are the invaluable ambassadors of any institution, representing its legacy, values, and achievements. These distinguished individuals, having traversed the corridors of academia, emerge as torchbearers illuminating paths for future generations.
-The bond between an institution and its alumni transcends time, fostering a continuum of learning and growth. Alumni serve as a testament to the transformative power of education, embodying the ethos of excellence instilled during their academic tenure.
-<br><br>
-Beyond mere graduates, alumni embody a diverse tapestry of accomplishments spanning various fields and industries. They form a vibrant network, fostering connections, collaborations, and mentorship opportunities. Through their collective endeavors, alumni contribute to the advancement of society, driving innovation, and effecting positive change.
-Engagement with alumni is pivotal for institutions, as they provide invaluable insights, support, and resources. Alumni reunions, networking events, and mentorship programs cultivate a sense of belonging and perpetuate the institution's ethos.
-<br><br>
-As stewards of tradition and champions of progress, alumni uphold the values of their alma mater while carving distinctive paths in their respective domains. Their enduring dedication and unwavering commitment enrich the fabric of the institution, leaving an indelible mark on its legacy.
-In essence, alumni epitomize the enduring spirit of learning, leadership, and service, embodying the essence of their alma mater long after their academic journey concludes.
+        <div class="container mt-5 " data-aos="fade-up" data-aos-duration="500">
+            <h2>About Alumni</h2>
+            <div class="card pb-3 bg-light" style="background: transparent;">
+                <div class="row align-items-center g-0">
+                    <div class="col-lg-12">
+                        <div class="card-body" style="text-align: justify;">
+                            <p class="card-text about-text"> Alumni are the invaluable ambassadors of any institution,
+                                representing its legacy, values, and achievements. These distinguished individuals,
+                                having traversed the corridors of academia, emerge as torchbearers illuminating paths
+                                for future generations.
+                                The bond between an institution and its alumni transcends time, fostering a continuum of
+                                learning and growth. Alumni serve as a testament to the transformative power of
+                                education, embodying the ethos of excellence instilled during their academic tenure.
+                                <br><br>
+                                Beyond mere graduates, alumni embody a diverse tapestry of accomplishments spanning
+                                various fields and industries. They form a vibrant network, fostering connections,
+                                collaborations, and mentorship opportunities. Through their collective endeavors, alumni
+                                contribute to the advancement of society, driving innovation, and effecting positive
+                                change.
+                                Engagement with alumni is pivotal for institutions, as they provide invaluable insights,
+                                support, and resources. Alumni reunions, networking events, and mentorship programs
+                                cultivate a sense of belonging and perpetuate the institution's ethos.
+                                <br><br>
+                                As stewards of tradition and champions of progress, alumni uphold the values of their
+                                alma mater while carving distinctive paths in their respective domains. Their enduring
+                                dedication and unwavering commitment enrich the fabric of the institution, leaving an
+                                indelible mark on its legacy.
+                                In essence, alumni epitomize the enduring spirit of learning, leadership, and service,
+                                embodying the essence of their alma mater long after their academic journey concludes.
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container mt-5" data-aos="fade-up" data-aos-duration="500">
-        <h2>Notifications</h2>
-        <div style="max-height:400px; overflow-y:scroll; " id="notifications" class="row mt-3 bg-light pt-3">
-            <div class="alert alert-danger" role="alert">
-                No Notifications
+
+        <div class="container mt-5 bg-light p-2" data-aos="fade-up" data-aos-duration="500">
+            <div class="d-flex justify-content-around">
+                <button show="notificationtab" class="tabchange btn btn-primary m-2">Notifications</button>
+                <button show="studenttab" class="tabchange btn btn-primary m-2">Students</button>
+                <button show="stafftab" class="tabchange btn btn-primary m-2">Staff</button>
+                <button show="gallerytab" class="tabchange btn btn-primary m-2">Gallery</button>
             </div>
         </div>
-    </div>
-    <div class="container pt-5 mt-5 bg-light" data-aos="fade-up" data-aos-duration="500">
 
-    <h2>Gallery</h2>
-            
+        <div id="notificationtab" class="container mt-5 tabhide" data-aos="fade-up" data-aos-duration="500">
+            <h2>Notifications</h2>
+            <div style="max-height:400px; overflow-y:scroll; " id="notifications" class="row mt-3 bg-light pt-3">
+                <div class="alert alert-danger" role="alert">
+                    No Notifications
+                </div>
+            </div>
+        </div>
+
+
+        <div id="stafftab" class="container mt-5 tabhide d-none" data-aos="fade-up" data-aos-duration="500">
+            <h2>Staff</h2>
+            <?php include("./template/staffDetails.php"); ?>
+        </div>
+
+        <div id="studenttab" class="container mt-5 tabhide d-none" data-aos="fade-up" data-aos-duration="500">
+            <h2>Alumni</h2>
+            <?php include("./template/alumniDetails.php"); ?>
+        </div>
+
+
+        <div id="gallerytab" class="container pt-5 mt-5 bg-light tabhide d-none" data-aos="fade-up" data-aos-duration="500">
+
+            <h2>Gallery</h2>
+
             <?php include("./gallery/index.php"); ?>
         </div>
         <?php include("./template/footer.php"); ?>
+
+
+        <script>
+        const btn = document.querySelectorAll(".tabchange").forEach(element => {
+            element.addEventListener("click",e => {
+                const showtab = element.getAttribute("show");
+                const tab = document.getElementById(showtab);
+
+                document.querySelectorAll('.tabhide').forEach(tab => tab.classList.add("d-none"))
+                tab.classList.remove("d-none")
+            })
+
+        }); 
+        </script>
+
 
         <script>
             // Fetch notifications from PHP script
@@ -240,4 +351,4 @@ In essence, alumni epitomize the enduring spirit of learning, leadership, and se
             notificationinit()
         </script>
 
-</body>
+    </body>
